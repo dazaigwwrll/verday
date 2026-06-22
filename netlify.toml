@@ -4,6 +4,11 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Bundle functions with esbuild so ESM/CJS interop (express, pg, …)
+# resolves cleanly into a single file.
+[functions]
+  node_bundler = "esbuild"
+
 # Route API calls to the serverless function...
 [[redirects]]
   from = "/api/*"

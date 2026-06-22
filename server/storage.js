@@ -21,12 +21,23 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { randomBytes } from "node:crypto";
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+/* Where to keep the local db.json. Only used by the file backend
+ *  (local dev). Computed lazily and defensively because once this
+ *  module is bundled to CJS for serverless, `import.meta.url` may be
+ *  undefined — but in that deployment the Postgres backend is used,
+ *  so this never runs there. */
+function fileStoreDir() {
+  try {
+    return dirname(fileURLToPath(import.meta.url));
+  } catch {
+    return process.cwd();
+  }
+}
 
 /* ---------------- local JSON-file backend ---------------- */
 
 function createFileStore() {
-  const DB_PATH = join(__dirname, "db.json");
+  const DB_PATH = join(fileStoreDir(), "db.json");
 
   const load = () => {
     if (!existsSync(DB_PATH)) {

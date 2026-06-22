@@ -44,7 +44,7 @@ export default function Settings() {
   const exportBackup = () => {
     const payload = JSON.stringify(
       {
-        app: "rozan",
+        app: "verday",
         version: 1,
         exportedAt: new Date().toISOString(),
         state,

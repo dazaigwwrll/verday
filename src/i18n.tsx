@@ -22,7 +22,7 @@ const CAL_KEY = "planner.cal.v1";
 type Dict = Record<string, string>;
 
 const FA: Dict = {
-  "brand": "روزن",
+  "brand": "Verday",
   "nav.today": "امروز",
   "nav.week": "هفته",
   "nav.goals": "اهداف",
@@ -287,7 +287,7 @@ const FA: Dict = {
   "focus.notifyWorkBody": "استراحت تمام شد، بریم سراغ کار.",
   "notify.taskTitle": "یادآوری کار",
   "notify.taskBody": "{title} — ساعت {time}",
-  "onb.title": "به روزن خوش اومدی",
+  "onb.title": "به Verday خوش اومدی",
   "onb.subtitle": "دستیار آرامِ تو برای رسیدن به کارها و هدف‌ها — همه‌چیز روی همین دستگاه و آفلاین.",
   "onb.b1": "روزت رو با کارها و زمان‌بندی‌شون بچین",
   "onb.b2": "هدف سالانه رو به ماه، هفته و روز بشکن",
@@ -362,7 +362,7 @@ const FA: Dict = {
 };
 
 const EN: Dict = {
-  "brand": "Rozan",
+  "brand": "Verday",
   "nav.today": "Today",
   "nav.week": "Week",
   "nav.goals": "Goals",
@@ -632,7 +632,7 @@ const EN: Dict = {
   "focus.notifyWorkBody": "Break's over, back to it.",
   "notify.taskTitle": "Task reminder",
   "notify.taskBody": "{title} — at {time}",
-  "onb.title": "Welcome to Rozan",
+  "onb.title": "Welcome to Verday",
   "onb.subtitle": "Your calm companion for tasks and goals — all on this device, fully offline.",
   "onb.b1": "Plan your day with tasks and times",
   "onb.b2": "Break a yearly goal into months, weeks and days",

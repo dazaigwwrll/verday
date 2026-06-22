@@ -88,7 +88,7 @@ git push -u origin main
 4. در **Environment variables** اضافه کن:
    - `VITE_API_URL` = آدرس سرور Render از مرحله‌ی ۲
      (مثلاً `https://planner-sync.onrender.com`)
-5. Deploy کن. یک آدرس مثل `https://rozan.pages.dev` می‌گیری —
+5. Deploy کن. یک آدرس مثل `https://verday.pages.dev` می‌گیری —
    همین لینک عمومیه که به هر کسی می‌دی.
 
 > فایل [public/_redirects](public/_redirects) باعث می‌شه مسیرهای داخلی اپ

@@ -1,5 +1,5 @@
 /* ============================================================
-   Rozan — sync + accounts backend.
+   Verday — sync + accounts backend.
 
    Deliberately small and self-contained:
    - email/password accounts, passwords hashed with bcrypt

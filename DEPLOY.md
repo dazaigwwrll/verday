@@ -65,7 +65,7 @@ git push -u origin main
      عبارت تصادفی بلند بگذار.
 4. Deploy کن. وقتی سبز شد، آدرس سرویس را بردار، مثل:
    ```
-   https://planner-sync.onrender.com
+   https://verday-sync.onrender.com
    ```
 5. تست سلامت: این آدرس + `/api/health` را در مرورگر باز کن →
    باید `{"ok":true}` ببینی.

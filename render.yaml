@@ -4,7 +4,7 @@
 # Neon) in the service's Environment tab.
 services:
   - type: web
-    name: planner-sync
+    name: verday-sync
     runtime: node
     rootDir: server
     plan: free

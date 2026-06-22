@@ -9,11 +9,19 @@
 
 import type { PlannerState } from "../domain/types";
 
-/** Server base URL. Configurable at build time via VITE_API_URL;
- *  defaults to the local dev server. */
+/** Server base URL.
+ *  - If VITE_API_URL is set at build time, use it (e.g. a separate
+ *    API host).
+ *  - In local dev, fall back to the local sync server.
+ *  - In production with no override, use the same origin (""), so a
+ *    unified deploy (web + /api together, e.g. on Vercel) just works
+ *    with relative /api/* requests — no CORS, no config. */
+const configured = (import.meta.env.VITE_API_URL as string | undefined)?.replace(
+  /\/$/,
+  ""
+);
 export const API_URL: string =
-  (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") ||
-  "http://localhost:8787";
+  configured ?? (import.meta.env.DEV ? "http://localhost:8787" : "");
 
 export interface Session {
   token: string;

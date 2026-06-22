@@ -12,7 +12,7 @@ the same data on your phone and computer.
 
 > Want to put this online for free so anyone can use it and the data
 > lives in the cloud? See **[../DEPLOY.md](../DEPLOY.md)** for a complete
-> free, no-credit-card walkthrough (Neon + Render + Cloudflare Pages).
+> free, no-credit-card walkthrough (Neon + Vercel).
 
 ## Run it
 

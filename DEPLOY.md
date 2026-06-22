@@ -1,125 +1,86 @@
-# استقرار رایگان روی اینترنت
+# استقرار رایگان روی اینترنت (Verday)
 
 هدف: هر کسی بتونه از وب استفاده کنه و مثل اپ نصبش کنه، و داده‌ها در ابر
-بمونن (نه فقط روی کامپیوتر تو). همه‌ی مرحله‌ها **رایگان** و **بدون کارت
-بانکی**اند.
+بمونن (نه فقط روی کامپیوتر تو). همه‌چیز **رایگان** و **بدون کارت بانکی**.
 
-سه تکه داریم:
+دو تکه داریم و هر دو روی **یک** پلتفرم میزبانی می‌شن:
 
 1. **دیتابیس** — Neon (Postgres رایگان و ماندگار)
-2. **سرور** — Render (رده‌ی رایگان)
-3. **وب** — Cloudflare Pages (رایگان) — قابل نصب به‌صورت PWA
+2. **وب + سرور** — Vercel (رایگان، بدون کارت). وب به‌صورت استاتیک سرو می‌شه و
+   مسیرهای `/api/*` به‌صورت توابع serverless اجرا می‌شن — یک استقرار، بدون
+   تنظیم آدرس جدا، بدون CORS.
 
 > اپ بدون این‌ها هم کامل کار می‌کنه (آفلاین). این مرحله فقط سینک ابری و
 > دسترسی عمومی رو اضافه می‌کنه.
 
 ---
 
-## ۰) کد را روی GitHub بگذار
+## ۰) کد روی GitHub
 
-Render و Cloudflare از روی یک ریپوی Git مستقر می‌کنن. اگر هنوز Git نداری:
-
-```powershell
-cd "C:\Users\asus iran\Desktop\planner naz"
-git init
-git add .
-git commit -m "planner"
-```
-
-بعد یک ریپوی خالی در GitHub بساز و:
-
-```powershell
-git remote add origin https://github.com/<username>/<repo>.git
-git branch -M main
-git push -u origin main
-```
-
-> فایل `server/db.json` و `node_modules` با `.gitignore` آپلود نمی‌شن — درست همینه.
-
----
+ریپو: <https://github.com/dazaigwwrll/verday>. هر `git push` به‌طور خودکار
+Vercel رو دوباره مستقر می‌کنه.
 
 ## ۱) دیتابیس — Neon
 
-1. برو به <https://neon.tech> و با گوگل/گیت‌هاب رایگان ثبت‌نام کن.
-2. یک پروژه‌ی جدید بساز (منطقه‌ی نزدیک، مثلاً Europe).
-3. از صفحه‌ی **Connection string**، رشته‌ی اتصال را کپی کن. چیزی شبیه:
+1. <https://neon.tech> → ثبت‌نام رایگان.
+2. یک پروژه بساز (نام دلخواه، منطقه‌ی نزدیک).
+3. رشته‌ی **Connection string** (pooled) را بردار. جدول‌ها خودکار موقع اولین
+   اجرا ساخته می‌شن.
+
+   با neonctl (اگر نصب باشد) می‌توان رشته را در کلیپ‌بورد گذاشت:
+   ```powershell
+   neonctl connection-string --project-id <PROJECT_ID> --database-name neondb --role-name neondb_owner --pooled | Set-Clipboard
    ```
-   postgresql://user:password@ep-xxx.eu-central-1.aws.neon.tech/dbname?sslmode=require
-   ```
-   این را برای مرحله‌ی بعد نگه دار.
 
-> جدول‌ها را لازم نیست خودت بسازی؛ سرور موقع اولین اجرا خودکار می‌سازدشان.
+## ۲) وب + سرور — Vercel
 
----
+1. <https://vercel.com> → **Sign up with GitHub** (رایگان، بدون کارت).
+2. **Add New… → Project** → ریپوی **verday** را Import کن.
+3. تنظیمات build خودکار تشخیص داده می‌شن (Vite):
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - (دست نزن، درست‌اند.)
+4. بخش **Environment Variables** یکی اضافه کن:
+   - `DATABASE_URL` = رشته‌ی اتصال Neon (pooled).
+   - (`JWT_SECRET` لازم نیست؛ سرور خودش می‌سازد و در دیتابیس نگه می‌دارد.)
+5. **Deploy**. وقتی تمام شد یک آدرس مثل `https://verday.vercel.app` می‌گیری —
+   همین لینک عمومیه.
+6. تست سلامت: آدرس + `/api/health` → باید `{"ok":true}` ببینی.
 
-## ۲) سرور — Render
+> مسیریابی در [vercel.json](vercel.json) تنظیم شده: `/api/*` به سرور می‌رود و
+> بقیه‌ی مسیرها به اپ تک‌صفحه‌ای (SPA). تابع serverless از
+> [api/index.js](api/index.js) همان اپ Express در [server/app.js](server/app.js)
+> را اجرا می‌کند.
 
-1. برو به <https://render.com> و رایگان ثبت‌نام کن، GitHub را وصل کن.
-2. **New + → Blueprint** را بزن و ریپو را انتخاب کن. Render فایل
-   [render.yaml](render.yaml) را می‌خواند و سرویس `planner-sync` را می‌سازد.
-   (اگر Blueprint نخواستی: **New + → Web Service**، ریپو را بده،
-   `Root Directory = server`، `Build = npm install`، `Start = npm start`.)
-3. در تب **Environment** سرویس:
-   - `DATABASE_URL` = رشته‌ی اتصال Neon از مرحله‌ی ۱.
-   - `JWT_SECRET` = اگر Blueprint استفاده کردی خودکار ساخته شده؛ وگرنه یک
-     عبارت تصادفی بلند بگذار.
-4. Deploy کن. وقتی سبز شد، آدرس سرویس را بردار، مثل:
-   ```
-   https://verday-sync.onrender.com
-   ```
-5. تست سلامت: این آدرس + `/api/health` را در مرورگر باز کن →
-   باید `{"ok":true}` ببینی.
+## ۳) نصب مثل اپ (PWA)
 
-> **نکته‌ی رده‌ی رایگان Render:** بعد از ~۱۵ دقیقه بی‌فعالیتی سرور می‌خوابه و
-> اولین درخواست بعدی ~۳۰–۵۰ ثانیه طول می‌کشه تا بیدار شه. اپ این را
-> هوشمندانه تحمل می‌کنه: همه‌چیز آفلاین کار می‌کنه و سینک خودکار دوباره
-> تلاش می‌کنه؛ چیزی خراب نمی‌شه.
-
----
-
-## ۳) وب — Cloudflare Pages
-
-1. برو به <https://pages.cloudflare.com> و رایگان ثبت‌نام کن.
-2. **Create a project → Connect to Git** و ریپو را انتخاب کن.
-3. تنظیمات build:
-   - **Framework preset:** Vite (یا None)
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-4. در **Environment variables** اضافه کن:
-   - `VITE_API_URL` = آدرس سرور Render از مرحله‌ی ۲
-     (مثلاً `https://planner-sync.onrender.com`)
-5. Deploy کن. یک آدرس مثل `https://verday.pages.dev` می‌گیری —
-   همین لینک عمومیه که به هر کسی می‌دی.
-
-> فایل [public/_redirects](public/_redirects) باعث می‌شه مسیرهای داخلی اپ
-> (مثل `/goals`) درست باز شن. (برای Netlify همین فایل کافیه؛ برای Vercel،
-> [vercel.json](vercel.json) هست.)
-
----
-
-## ۴) نصب مثل اپ (PWA)
-
-روی همان آدرس وب:
-
-- **اندروید/سامسونگ (Chrome):** منو → «Add to Home screen / نصب برنامه».
-- **آیفون (Safari):** دکمه‌ی Share → «Add to Home Screen».
+روی همان آدرس:
+- **اندروید/سامسونگ (Chrome):** منو → «Add to Home screen / نصب».
+- **آیفون (Safari):** Share → «Add to Home Screen».
 - **دسکتاپ (Chrome/Edge):** آیکن نصب در نوار آدرس.
-
-بعد از نصب، آیکن مستقل، تمام‌صفحه و آفلاین داری — مثل اپ واقعی.
-
----
 
 ## استفاده
 
-کاربر اپ را باز می‌کنه → **تنظیمات → حساب کاربری** → حساب می‌سازد و وارد
-می‌شود. از آن به بعد داده‌اش در ابر سینک می‌شود و روی هر دستگاهی که وارد شود
-یکی است. بدون ورود هم اپ کامل و آفلاین کار می‌کند.
+کاربر اپ را باز می‌کند → **تنظیمات → حساب کاربری** → حساب می‌سازد و وارد
+می‌شود. از آن پس داده‌اش در ابر سینک می‌شود. بدون ورود هم اپ کامل و آفلاین
+کار می‌کند.
 
-## به‌روزرسانی بعدی
+## اجرای محلی سرور (اختیاری، برای توسعه)
 
-هر بار به GitHub `push` کنی، Render و Cloudflare خودکار دوباره مستقر می‌کنن.
+```bash
+cd server
+npm install
+npm start        # http://localhost:8787، با فایل db.json محلی
+```
+بدون `DATABASE_URL`، سرور از یک فایل `db.json` محلی استفاده می‌کند؛ با آن،
+از Postgres.
 
-## نگهداری / پشتیبان داده
+## نکته‌ی جدا کردن میزبانی (اختیاری)
 
-داده‌ها در Neon‌اند. در داشبورد Neon می‌تونی وضعیت دیتابیس را ببینی. هر
-کاربر هم از داخل اپ (تنظیمات → پشتیبان‌گیری) می‌تونه فایل پشتیبان شخصی بگیره.
+اگر خواستی وب و سرور را جدا میزبانی کنی، اپ را با `VITE_API_URL` برابر آدرس
+سرور build کن:
+```powershell
+$env:VITE_API_URL="https://your-api.example.com"; npm run build
+```
+اگر تنظیم نشود، اپ در تولید از همان دامنه (same-origin) برای `/api` استفاده
+می‌کند.

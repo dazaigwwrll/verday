@@ -283,9 +283,9 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         const task: Task = {
           id: uid(),
           done: false,
-          date: input.date || todayISO(),
           ...stamp(),
           ...input,
+          date: input.date || todayISO(),
         };
         dispatch({ type: "addTask", task });
         return task;

@@ -20,8 +20,8 @@ export function loadState(): PlannerState {
       occasions: parsed.occasions ?? [],
       dailyLogs: parsed.dailyLogs ?? [],
       habits: (parsed.habits ?? []).map((h) => ({
-        kind: "build" as const,
         ...h,
+        kind: h.kind ?? "build",
       })),
       habitDays: parsed.habitDays ?? {},
       recurrences: parsed.recurrences ?? [],

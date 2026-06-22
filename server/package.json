@@ -1,9 +1,9 @@
 {
-  "name": "planner-naz-server",
+  "name": "rozan-server",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Optional sync + accounts backend for Facilitator Planner. Free, self-hosted, no external service.",
+  "description": "Optional sync + accounts backend for Rozan planner. Free, self-hosted, no external service.",
   "engines": {
     "node": ">=18"
   },

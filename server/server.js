@@ -1,5 +1,5 @@
 /* ============================================================
-   Facilitator Planner — sync + accounts backend.
+   Rozan — sync + accounts backend.
 
    Deliberately small and self-contained:
    - email/password accounts, passwords hashed with bcrypt

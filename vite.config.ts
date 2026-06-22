@@ -10,9 +10,9 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["icon.svg", "favicon.svg"],
       manifest: {
-        name: "پلنر",
-        short_name: "پلنر",
-        description: "پلنر تسهیلگر — اهداف، عادت‌ها، تقویم و بیشتر",
+        name: "روزن",
+        short_name: "روزن",
+        description: "روزن — اهداف، عادت‌ها، تقویم و بیشتر",
         lang: "fa",
         dir: "rtl",
         theme_color: "#5b9df0",

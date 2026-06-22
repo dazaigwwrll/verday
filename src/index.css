@@ -1,0 +1,161 @@
+/* ============================================================
+   Design system — clean minimal (Apple/iOS feel), PASTEL.
+   8 distinct themes; each a COMPLETE, harmonious palette:
+   tinted neutrals + a primary accent + an analogous accent-2
+   (used for soft gradients), with light + dark variants.
+     mode   = light | dark   (data-theme)
+     accent = blue|teal|green|yellow|coral|rose|purple|indigo
+   No emojis; icons are simple line SVGs.
+   ============================================================ */
+
+:root {
+  /* defaults = BLUE / LIGHT */
+  --bg: #eef4fc; --bg-elevated: #ffffff; --bg-sunken: #e2ecf8;
+  --fg: #283341; --fg-muted: #677589; --fg-subtle: #a4b1c2;
+  --border: #e1eaf5; --border-strong: #c9d6e6;
+  --accent: #5b9df0; --accent-2: #7c7ff2; --accent-fg: #ffffff;
+  --accent-soft: rgba(91, 157, 240, 0.16);
+
+  --shadow: 0 1px 2px rgba(40, 50, 70, 0.04), 0 8px 24px rgba(40, 50, 70, 0.06);
+  --shadow-lg: 0 16px 48px rgba(40, 50, 70, 0.14);
+  --danger: #e8736f; --success: #54c596;
+
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 44px;
+  --radius-sm: 12px; --radius: 16px; --radius-lg: 22px; --radius-pill: 999px;
+  --grad: linear-gradient(135deg, var(--accent), var(--accent-2));
+
+  --font: "Vazirmatn Variable", "Vazirmatn", -apple-system, "SF Pro Text",
+    "Segoe UI", Tahoma, system-ui, sans-serif;
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 10px 30px rgba(0,0,0,0.5);
+  --shadow-lg: 0 18px 50px rgba(0,0,0,0.6);
+  --danger: #f0908c; --success: #6fd6ab;
+  --bg: #0f141c; --bg-elevated: #18202b; --bg-sunken: #222c39;
+  --fg: #e7eef7; --fg-muted: #91a0b4; --fg-subtle: #5d6b7e;
+  --border: #27313e; --border-strong: #374352;
+  --accent: #6fa8f4; --accent-2: #8f8ff6; --accent-fg: #07101f;
+  --accent-soft: rgba(111, 168, 244, 0.20);
+}
+
+/* ===== BLUE — sky → indigo ===== */
+:root[data-accent="blue"]{--bg:#eef4fc;--bg-elevated:#fff;--bg-sunken:#e2ecf8;--fg:#283341;--fg-muted:#677589;--fg-subtle:#a4b1c2;--border:#e1eaf5;--border-strong:#c9d6e6;--accent:#5b9df0;--accent-2:#7c7ff2;--accent-fg:#fff;--accent-soft:rgba(91,157,240,.16)}
+:root[data-theme="dark"][data-accent="blue"]{--bg:#0f141c;--bg-elevated:#18202b;--bg-sunken:#222c39;--fg:#e7eef7;--fg-muted:#91a0b4;--fg-subtle:#5d6b7e;--border:#27313e;--border-strong:#374352;--accent:#6fa8f4;--accent-2:#8f8ff6;--accent-fg:#07101f;--accent-soft:rgba(111,168,244,.20)}
+
+/* ===== MATCHA — lively warm matcha green ===== */
+:root[data-accent="teal"]{--bg:#eef4e7;--bg-elevated:#fff;--bg-sunken:#e0ecd3;--fg:#2a3522;--fg-muted:#677457;--fg-subtle:#a4b393;--border:#e2ecd6;--border-strong:#c9d8b6;--accent:#7eb253;--accent-2:#a4cd6c;--accent-fg:#fff;--accent-soft:rgba(126,178,83,.18)}
+:root[data-theme="dark"][data-accent="teal"]{--bg:#10150b;--bg-elevated:#1a2012;--bg-sunken:#242c1a;--fg:#eaf0df;--fg-muted:#9ba787;--fg-subtle:#636e51;--border:#29321d;--border-strong:#3b4529;--accent:#a4c863;--accent-2:#c0da85;--accent-fg:#0c1604;--accent-soft:rgba(164,200,99,.20)}
+
+/* ===== GREEN — pine (cool green) ===== */
+:root[data-accent="green"]{--bg:#e9f5f0;--bg-elevated:#fff;--bg-sunken:#d8efe6;--fg:#1e342d;--fg-muted:#5a746b;--fg-subtle:#9ab8ac;--border:#daece5;--border-strong:#bdd9cd;--accent:#1fa17a;--accent-2:#46bd86;--accent-fg:#fff;--accent-soft:rgba(31,161,122,.16)}
+:root[data-theme="dark"][data-accent="green"]{--bg:#0a1411;--bg-elevated:#131f1a;--bg-sunken:#1c2b25;--fg:#e2f2eb;--fg-muted:#8ba89c;--fg-subtle:#566c63;--border:#223330;--border-strong:#314641;--accent:#34bd92;--accent-2:#59d09c;--accent-fg:#04190f;--accent-soft:rgba(52,189,146,.20)}
+
+/* ===== YELLOW — amber → honey ===== */
+:root[data-accent="yellow"]{--bg:#faf5e7;--bg-elevated:#fffdf6;--bg-sunken:#f1e8d2;--fg:#38301d;--fg-muted:#7b6d4f;--fg-subtle:#bba784;--border:#efe5d0;--border-strong:#ddcca9;--accent:#e9b84e;--accent-2:#f0a35a;--accent-fg:#39301c;--accent-soft:rgba(233,184,78,.20)}
+:root[data-theme="dark"][data-accent="yellow"]{--bg:#14110a;--bg-elevated:#1e1a10;--bg-sunken:#292216;--fg:#f4eedb;--fg-muted:#b3a481;--fg-subtle:#6e634d;--border:#2c2516;--border-strong:#3d3421;--accent:#f0ca6f;--accent-2:#f4b06a;--accent-fg:#211a09;--accent-soft:rgba(240,202,111,.18)}
+
+/* ===== CORAL — coral → rose ===== */
+:root[data-accent="coral"]{--bg:#fdf0eb;--bg-elevated:#fffaf8;--bg-sunken:#f7e2da;--fg:#3a2b25;--fg-muted:#836a60;--fg-subtle:#c4a59a;--border:#f4e0d8;--border-strong:#e6c5ba;--accent:#f08e72;--accent-2:#ee7a9c;--accent-fg:#fff;--accent-soft:rgba(240,142,114,.18)}
+:root[data-theme="dark"][data-accent="coral"]{--bg:#160f0c;--bg-elevated:#211611;--bg-sunken:#2d1f19;--fg:#f5e8e2;--fg-muted:#b6988d;--fg-subtle:#6f5c53;--border:#2f201a;--border-strong:#412f29;--accent:#f4a08a;--accent-2:#f28bac;--accent-fg:#210e09;--accent-soft:rgba(244,160,138,.20)}
+
+/* ===== ROSE — rose → orchid ===== */
+:root[data-accent="rose"]{--bg:#fceef3;--bg-elevated:#fffafc;--bg-sunken:#f6dee9;--fg:#382630;--fg-muted:#836371;--fg-subtle:#c79eb2;--border:#f3dce7;--border-strong:#e7c0d2;--accent:#e87fae;--accent-2:#c585e6;--accent-fg:#fff;--accent-soft:rgba(232,127,174,.18)}
+:root[data-theme="dark"][data-accent="rose"]{--bg:#160d12;--bg-elevated:#21141a;--bg-sunken:#2d1c25;--fg:#f5e6ed;--fg-muted:#b892a3;--fg-subtle:#6f545f;--border:#2f1d27;--border-strong:#412b36;--accent:#ef96bd;--accent-2:#cf9bef;--accent-fg:#210b14;--accent-soft:rgba(239,150,189,.20)}
+
+/* ===== PURPLE — lilac → indigo ===== */
+:root[data-accent="purple"]{--bg:#f3f0fc;--bg-elevated:#fff;--bg-sunken:#e8e2f6;--fg:#2f2a3d;--fg-muted:#6e6782;--fg-subtle:#aaa0c3;--border:#e8e1f5;--border-strong:#d1c6e7;--accent:#9d83ea;--accent-2:#7e8cf1;--accent-fg:#fff;--accent-soft:rgba(157,131,234,.16)}
+:root[data-theme="dark"][data-accent="purple"]{--bg:#110e18;--bg-elevated:#1a1626;--bg-sunken:#241f33;--fg:#efeafb;--fg-muted:#a79ac2;--fg-subtle:#695f80;--border:#282134;--border-strong:#382f49;--accent:#b59cf5;--accent-2:#94a0f6;--accent-fg:#120d26;--accent-soft:rgba(181,156,245,.22)}
+
+/* ===== MOCHA — warm taupe / brown ===== */
+:root[data-accent="mocha"]{--bg:#f5efe9;--bg-elevated:#fffdfb;--bg-sunken:#ece1d6;--fg:#38302a;--fg-muted:#7c6e63;--fg-subtle:#bbab9d;--border:#ece2d8;--border-strong:#dac9b8;--accent:#a9846a;--accent-2:#c5a585;--accent-fg:#fff;--accent-soft:rgba(169,132,106,.18)}
+:root[data-theme="dark"][data-accent="mocha"]{--bg:#14110e;--bg-elevated:#1f1a15;--bg-sunken:#2a231c;--fg:#f0e8df;--fg-muted:#b2a392;--fg-subtle:#6d6253;--border:#2e261e;--border-strong:#40362b;--accent:#c19c80;--accent-2:#d4b794;--accent-fg:#1a1009;--accent-soft:rgba(193,156,128,.20)}
+
+/* ===== PLUM — deep mauve ===== */
+:root[data-accent="plum"]{--bg:#f7eef4;--bg-elevated:#fffafc;--bg-sunken:#f0dfeb;--fg:#352630;--fg-muted:#7e6373;--fg-subtle:#c099b3;--border:#f0dde9;--border-strong:#e0c2d4;--accent:#a85c8d;--accent-2:#c074a4;--accent-fg:#fff;--accent-soft:rgba(168,92,141,.16)}
+:root[data-theme="dark"][data-accent="plum"]{--bg:#150d12;--bg-elevated:#20141b;--bg-sunken:#2c1d26;--fg:#f3e6ee;--fg-muted:#b491a4;--fg-subtle:#6e5460;--border:#2f1d28;--border-strong:#422c39;--accent:#c87daa;--accent-2:#d597bd;--accent-fg:#1f0c17;--accent-soft:rgba(200,125,170,.20)}
+
+/* ===== SLATE — cool blue-gray ===== */
+:root[data-accent="slate"]{--bg:#eef1f4;--bg-elevated:#fff;--bg-sunken:#e0e5ec;--fg:#2a2f37;--fg-muted:#646d7b;--fg-subtle:#a3acba;--border:#e3e7ed;--border-strong:#c8cfd9;--accent:#5f7088;--accent-2:#8693a6;--accent-fg:#fff;--accent-soft:rgba(95,112,136,.16)}
+:root[data-theme="dark"][data-accent="slate"]{--bg:#0e1116;--bg-elevated:#181c23;--bg-sunken:#222731;--fg:#e7ebf1;--fg-muted:#94a0b0;--fg-subtle:#5d6677;--border:#262c36;--border-strong:#36404c;--accent:#8a99af;--accent-2:#a4b1c2;--accent-fg:#0b0e14;--accent-soft:rgba(138,153,175,.20)}
+
+/* ===== WINE — warm burgundy ===== */
+:root[data-accent="wine"]{--bg:#f8edef;--bg-elevated:#fffafb;--bg-sunken:#f2dde1;--fg:#3a2429;--fg-muted:#846068;--fg-subtle:#c79aa3;--border:#f1dbdf;--border-strong:#e4bfc6;--accent:#b05068;--accent-2:#c76f7f;--accent-fg:#fff;--accent-soft:rgba(176,80,104,.16)}
+:root[data-theme="dark"][data-accent="wine"]{--bg:#160d10;--bg-elevated:#211318;--bg-sunken:#2d1c22;--fg:#f5e5e8;--fg-muted:#b9919a;--fg-subtle:#6f545b;--border:#301d23;--border-strong:#432c34;--accent:#d07182;--accent-2:#db8a96;--accent-fg:#1f0a0f;--accent-soft:rgba(208,113,130,.20)}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+h1, h2, h3, h4 { font-weight: 600; line-height: 1.35; margin: 0; letter-spacing: -0.015em; }
+p { margin: 0; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; font-size: inherit; cursor: pointer; }
+input, textarea, select { font-family: inherit; font-size: inherit; }
+
+.tnum { font-variant-numeric: tabular-nums; }
+.muted { color: var(--fg-muted); }
+.subtle { color: var(--fg-subtle); }
+
+/* ---------- Primitives ---------- */
+
+.card {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: var(--space-5);
+  box-shadow: var(--shadow);
+}
+
+.btn {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-pill);
+  background: var(--bg-elevated);
+  color: var(--fg);
+  font-weight: 500;
+  transition: transform 0.1s ease, background 0.14s ease, border-color 0.14s ease;
+}
+.btn:hover { background: var(--bg-sunken); }
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  background: var(--grad);
+  color: var(--accent-fg);
+  border-color: transparent;
+}
+.btn-primary:hover { filter: brightness(1.05); }
+
+.icon-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--bg-elevated);
+  color: var(--fg-muted);
+  transition: transform 0.1s ease, color 0.14s ease, background 0.14s ease;
+}
+.icon-btn:hover { color: var(--fg); background: var(--bg-sunken); }
+.icon-btn:active { transform: scale(0.92); }
+
+/* ---------- Motion ---------- */
+
+@keyframes pop-in { 0%{transform:scale(0.8);opacity:0} 60%{transform:scale(1.04)} 100%{transform:scale(1);opacity:1} }
+@keyframes rise-in { from{transform:translateY(6px);opacity:0} to{transform:translateY(0);opacity:1} }
+@keyframes fill-up { from{transform:translateY(40%) scale(0.85)} to{transform:translateY(0) scale(1)} }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }

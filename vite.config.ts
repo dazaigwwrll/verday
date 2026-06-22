@@ -1,0 +1,41 @@
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [
+    react(),
+    VitePWA({
+      registerType: "autoUpdate",
+      includeAssets: ["icon.svg", "favicon.svg"],
+      manifest: {
+        name: "پلنر",
+        short_name: "پلنر",
+        description: "پلنر تسهیلگر — اهداف، عادت‌ها، تقویم و بیشتر",
+        lang: "fa",
+        dir: "rtl",
+        theme_color: "#5b9df0",
+        background_color: "#eef4fc",
+        display: "standalone",
+        orientation: "portrait",
+        start_url: "/",
+        scope: "/",
+        icons: [
+          { src: "icon.svg", sizes: "any", type: "image/svg+xml", purpose: "any" },
+          {
+            src: "icon.svg",
+            sizes: "any",
+            type: "image/svg+xml",
+            purpose: "maskable",
+          },
+        ],
+      },
+      workbox: {
+        globPatterns: ["**/*.{js,css,html,svg,woff,woff2}"],
+        navigateFallback: "/index.html",
+      },
+      devOptions: { enabled: true },
+    }),
+  ],
+});

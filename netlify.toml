@@ -1,0 +1,17 @@
+# Netlify deploy config for Verday (web + serverless API, free, no card/phone).
+[build]
+  command = "npm run build"
+  publish = "dist"
+  functions = "netlify/functions"
+
+# Route API calls to the serverless function...
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/api/:splat"
+  status = 200
+
+# ...and everything else to the single-page app.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

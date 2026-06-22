@@ -72,6 +72,18 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "8mb" }));
 
+// Normalize the request path so the same /api/* routes match no
+// matter how the host delivers the request: a local server and the
+// Vercel rewrite send "/api/...", while a Netlify function sees the
+// "/.netlify/functions/api/..." base. Strip any function base and
+// guarantee a leading "/api".
+app.use((req, _res, next) => {
+  let u = req.url.replace(/^\/\.netlify\/functions\/[^/?]+/, "");
+  if (!u.startsWith("/api")) u = "/api" + (u.startsWith("/") ? u : "/" + u);
+  req.url = u;
+  next();
+});
+
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 
 app.post("/api/register", async (req, res) => {

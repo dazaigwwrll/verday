@@ -24,6 +24,8 @@ import cors from "cors";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { randomBytes } from "node:crypto";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 import { createStore } from "./storage.js";
 
 const TOKEN_TTL = "30d";
@@ -71,6 +73,25 @@ async function auth(req, res, next) {
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: "8mb" }));
+
+// When SERVE_STATIC is set (the all-in-one Liara deployment), this
+// single Node process also serves the built web app from ../dist, so
+// the site and its API share one origin. Mounted BEFORE path
+// normalization so asset requests (/assets/…) aren't rewritten.
+let staticDir = null;
+if (process.env.SERVE_STATIC) {
+  try {
+    staticDir = path.resolve(
+      path.dirname(fileURLToPath(import.meta.url)),
+      "..",
+      "dist"
+    );
+    app.use(express.static(staticDir));
+  } catch (e) {
+    console.error("static setup failed:", e.message);
+    staticDir = null;
+  }
+}
 
 // Normalize the request path so the same /api/* routes match no
 // matter how the host delivers the request: a local server and the
@@ -162,5 +183,13 @@ app.delete("/api/account", auth, async (req, res) => {
     res.status(500).json({ error: "server_error" });
   }
 });
+
+// SPA fallback: any non-API route returns index.html so client-side
+// routing works (only when this process serves the static site).
+if (staticDir) {
+  app.get(/.*/, (_req, res) => {
+    res.sendFile(path.join(staticDir, "index.html"));
+  });
+}
 
 export default app;

@@ -1,0 +1,9 @@
+node_modules
+dist
+dev-dist
+.git
+.netlify
+.vscode
+*.log
+server/db.json
+server/node_modules
